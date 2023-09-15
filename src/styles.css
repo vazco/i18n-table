@@ -1,0 +1,123 @@
+.translation-manager {
+  --border-radius: 5px;
+  --bg-primary: #333;
+  --bg-secondary: #d3d3d3;
+  --bg-tertiary: #f3f3f3;
+  --padding-md: 5px 10px;
+  --padding-lg: 10px 20px;
+
+  font-family: monospace;
+}
+
+.translation-manager > .header {
+  background-color: var(--bg-primary);
+}
+
+.translation-manager > .header > .search,
+.translation-manager > .header > .locale-dropdown,
+.translation-manager > .header > .save {
+  border-radius: var(--border-radius);
+  box-sizing: border-box;
+  height: 30px;
+  margin: 10px;
+  outline: none;
+  padding: var(--padding-md);
+}
+
+.translation-manager > .header > .search,
+.translation-manager > .header > .locale-dropdown {
+  width: 180px;
+}
+
+.translation-manager > .header > .save {
+  background-color: var(--bg-secondary);
+  border: none;
+  width: 60px;
+}
+
+.translation-manager > .table th {
+  background-color: var(--bg-secondary);
+  box-sizing: border-box;
+  left: 0;
+  padding: var(--padding-lg);
+  position: sticky;
+}
+
+.translation-manager > .table {
+  height: calc(100vh - 50px) !important;
+}
+
+.translation-manager > .table .locale-names {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.translation-manager > .table .export-group > button {
+  background-color: unset;
+  cursor: pointer;
+}
+
+.translation-manager > .table .export-group > button:first-child {
+  margin-right: 5px;
+}
+
+.translation-manager > .table .translation-key {
+  background-color: var(--bg-tertiary);
+  left: 0;
+  max-width: 260px;
+  min-width: 260px;
+  overflow-x: scroll;
+  padding: var(--padding-lg);
+  position: sticky;
+  text-align: center;
+  width: 260px;
+  z-index: 1;
+}
+
+.translation-manager > .table .translation {
+  padding: var(--padding-md);
+  height: 50px;
+}
+
+.translation-manager > .table .translation-background {
+  background-color: #f3f3f3 !important;
+}
+
+.translation-manager > .table .translation > textarea {
+  background-color: unset;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  height: 100%;
+  outline: none;
+  resize: none;
+  width: 100%;
+}
+
+.translation-manager .top-layer {
+  z-index: 1;
+}
+
+.translation-manager .sticky-column {
+  position: sticky;
+  left: 240;
+  z-index: 1;
+}
+
+.translation-manager .added {
+  background-color: lightgreen;
+}
+
+.translation-manager .modified {
+  background-color: yellow;
+}
+
+.translation-manager .removed {
+  background-color: #f33;
+}
+
+.translation-manager .default {
+  background-color: white;
+}

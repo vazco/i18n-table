@@ -1,0 +1,9 @@
+{
+  "extends": ["vazco/typescript"],
+  "parser": "@typescript-eslint/parser",
+  "ignorePatterns": ["dist/*"],
+  "rules": {
+    "react-hooks/exhaustive-deps": 1,
+    "eslint-comments/require-description": 0
+  }
+}
