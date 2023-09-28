@@ -7,15 +7,17 @@ import { TableVirtuoso } from 'react-virtuoso';
 
 import buildClassName from './lib/buildClassName';
 import { DEFAULT_COMPONENT_TRANSLATIONS } from './lib/constants';
-import { Action, DataType, LocaleType } from './types';
+import { Action, ChangesType, DataType, LocaleType } from './types';
 
 type TableProps = {
+  changes: ChangesType;
   componentTranslations: typeof DEFAULT_COMPONENT_TRANSLATIONS;
   data: DataType[];
   filteredData: DataType[];
   isChanged: boolean;
   locales: LocaleType[];
   selectedLocale: string;
+  setChanges: React.Dispatch<React.SetStateAction<ChangesType>>;
   setData: React.Dispatch<React.SetStateAction<DataType[]>>;
   setIsChanged: React.Dispatch<React.SetStateAction<boolean>>;
   sortedLocales: string[];
@@ -23,13 +25,14 @@ type TableProps = {
 };
 
 function Table({
+  changes,
   componentTranslations,
   data,
   filteredData,
   isChanged,
   locales,
   selectedLocale,
-  setData,
+  setChanges,
   setIsChanged,
   sortedLocales,
   translations,
@@ -43,46 +46,50 @@ function Table({
       setIsChanged(true);
     }
 
-    setData(data => {
-      const dataCopy = JSON.parse(JSON.stringify(data)) as DataType[];
-      const localeIndex = dataCopy.findIndex(data => data.key === key);
+    setChanges(changes => {
+      const changesCopy = JSON.parse(JSON.stringify(changes)) as typeof changes;
+      const translationKey = data.find(data => data.key === key).key;
 
       const previousValue = get(translations[locale], key) ?? '';
 
+      if (!changesCopy[translationKey]) {
+        changesCopy[translationKey] = {};
+      }
+
       if (previousValue === value) {
-        set(dataCopy[localeIndex].translations, locale, {
-          action: Action.DEFAULT,
-          value,
-        });
+        delete changesCopy[translationKey][locale];
       } else if (value === '') {
-        set(dataCopy[localeIndex].translations, locale, {
+        set(changesCopy[translationKey], locale, {
           action: Action.REMOVED,
           value,
         });
       } else if (previousValue === '' && value !== '') {
-        set(dataCopy[localeIndex].translations, locale, {
+        set(changesCopy[translationKey], locale, {
           action: Action.ADDED,
           value,
         });
       } else if (previousValue !== value) {
-        set(dataCopy[localeIndex].translations, locale, {
+        set(changesCopy[translationKey], locale, {
           action: Action.MODIFIED,
           value,
         });
       } else {
-        set(dataCopy[localeIndex].translations, `${locale}.value`, value);
+        set(changesCopy, `${translationKey}.${locale}.value`, value);
       }
 
-      return dataCopy;
+      return changesCopy;
     });
   };
 
   const handleExportFile = (locale: string, type: 'json' | 'yml') => {
-    const currentData = JSON.parse(JSON.stringify(data)) as DataType[];
+    const currentData = JSON.parse(JSON.stringify(data)) as typeof data;
     const dataObject = {};
 
     for (const translation of currentData) {
-      set(dataObject, translation.key, translation.translations[locale].value);
+      const value =
+        changes[translation.key]?.[locale]?.value ??
+        translation.translations[locale];
+      set(dataObject, translation.key, value);
     }
 
     const serializedTranslations =
@@ -159,15 +166,18 @@ function Table({
                 className={buildClassName(
                   isSticky
                     ? `translation sticky-column${
-                        item.translations[locale].action === Action.DEFAULT
-                          ? ' translation-background'
-                          : ''
-                      } ${item.translations[locale].action}`
-                    : `translation ${item.translations[locale].action}`,
+                        changes[item.key]?.[locale]?.action
+                          ? ''
+                          : ' translation-background'
+                      } ${changes[item.key]?.[locale]?.action}`
+                    : `translation ${changes[item.key]?.[locale]?.action}`,
                 )}
               >
                 <textarea
-                  value={item.translations[locale].value}
+                  value={
+                    changes[item.key]?.[locale]?.value ??
+                    item.translations[locale]
+                  }
                   onChange={event =>
                     handleTranslationChange(
                       item.key,

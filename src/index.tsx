@@ -7,7 +7,7 @@ import buildClassName from './lib/buildClassName';
 import { DEFAULT_COMPONENT_TRANSLATIONS } from './lib/constants';
 import getSearchRegex from './lib/getSearchRegex';
 import keyify from './lib/keyify';
-import { Action, DataType, LocaleType, TranslationsType } from './types';
+import { ChangesType, DataType, LocaleType, TranslationsType } from './types';
 
 import './styles.css';
 
@@ -24,10 +24,7 @@ function initData(
 
     for (const locale of locales) {
       const value = get(translations[locale], key) as string | undefined;
-      object.translations[locale] = {
-        action: Action.DEFAULT,
-        value: value ?? '',
-      };
+      object.translations[locale] = value ?? '';
     }
 
     return object;
@@ -65,6 +62,7 @@ function TranslationManager({
     [translations],
   );
 
+  const [changes, setChanges] = React.useState<ChangesType>({});
   const [data, setData] = React.useState(
     initData(keys, localeKeys, translations),
   );
@@ -105,32 +103,29 @@ function TranslationManager({
   }, [data]);
 
   const handleSave = () => {
-    const dataCopy = JSON.parse(JSON.stringify(data)) as DataType[];
+    const dataCopy = JSON.parse(JSON.stringify(data)) as typeof data;
 
     const translations: Record<string, Record<string, unknown>> = {};
     for (const localeKey of localeKeys) {
       translations[localeKey] = {};
       for (const translation of dataCopy) {
+        const value =
+          changes[translation.key]?.[localeKey]?.value ??
+          translation.translations[localeKey];
+
+        set(translations[localeKey], translation.key, value);
         set(
-          translations[localeKey],
-          translation.key,
-          (
-            translation.translations[localeKey] as {
-              action: Action;
-              value: string;
-            }
-          ).value,
-        );
-        set(
-          dataCopy[dataCopy.findIndex(({ key }) => key === translation.key)],
-          `${localeKey}.action`,
-          Action.DEFAULT,
+          dataCopy[dataCopy.findIndex(({ key }) => key === translation.key)]
+            .translations,
+          localeKey,
+          value,
         );
       }
     }
 
     setIsChanged(false);
     setData(dataCopy);
+    setChanges({});
 
     onSave(translations);
   };
@@ -180,12 +175,14 @@ function TranslationManager({
       </div>
 
       <Table
+        changes={changes}
         componentTranslations={componentTranslations}
         data={data}
         filteredData={filteredData}
         isChanged={isChanged}
         locales={locales}
         selectedLocale={selectedLocale}
+        setChanges={setChanges}
         setData={setData}
         setIsChanged={setIsChanged}
         sortedLocales={sortedLocales}
