@@ -35,6 +35,8 @@ const translations = {
 };
 ```
 
+`translations` object should have **locales** as keys and **objects or nested objects** as values.
+
 3. Prepare locales with full and local names.
 
 > [!IMPORTANT]
@@ -55,7 +57,7 @@ export const App = () => (
     translations={translations}
     locales={locales}
     onSave={translations => {
-      /* handle saving translations */
+      /* Handle saving translations - structure is the same as in the step 2. */
     }}
   />
 );

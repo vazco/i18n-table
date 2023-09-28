@@ -5,6 +5,7 @@ import set from 'lodash.set';
 import React from 'react';
 import { TableVirtuoso } from 'react-virtuoso';
 
+import buildClassName from './lib/buildClassName';
 import { Action, DataType, LocaleType } from './types';
 
 type TableProps = {
@@ -12,11 +13,11 @@ type TableProps = {
   filteredData: DataType[];
   isChanged: boolean;
   locales: LocaleType[];
-  selectedLocale: LocaleType['locale'];
+  selectedLocale: string;
   setData: React.Dispatch<React.SetStateAction<DataType[]>>;
   setIsChanged: React.Dispatch<React.SetStateAction<boolean>>;
-  sortedLocales: LocaleType['locale'][];
-  translations: Record<LocaleType['locale'], Record<string, unknown>>;
+  sortedLocales: string[];
+  translations: Record<string, Record<string, unknown>>;
 };
 
 function Table({
@@ -46,15 +47,15 @@ function Table({
       const previousValue = get(translations[locale], key) ?? '';
 
       if (previousValue === value) {
-        set(dataCopy[localeIndex], locale, { action: Action.DEFAULT, value });
+        set(dataCopy[localeIndex].translations, locale, { action: Action.DEFAULT, value });
       } else if (value === '') {
-        set(dataCopy[localeIndex], locale, { action: Action.REMOVED, value });
+        set(dataCopy[localeIndex].translations, locale, { action: Action.REMOVED, value });
       } else if (previousValue === '' && value !== '') {
-        set(dataCopy[localeIndex], locale, { action: Action.ADDED, value });
+        set(dataCopy[localeIndex].translations, locale, { action: Action.ADDED, value });
       } else if (previousValue !== value) {
-        set(dataCopy[localeIndex], locale, { action: Action.MODIFIED, value });
+        set(dataCopy[localeIndex].translations, locale, { action: Action.MODIFIED, value });
       } else {
-        set(dataCopy[localeIndex], `${locale}.value`, value);
+        set(dataCopy[localeIndex].translations, `${locale}.value`, value);
       }
 
       return dataCopy;
@@ -83,11 +84,11 @@ function Table({
 
   return (
     <TableVirtuoso
-      className="table"
+      className={buildClassName('table')}
       data={filteredData}
       fixedHeaderContent={() => (
         <tr>
-          <th className="top-layer">Translation key</th>
+          <th className={buildClassName('top-layer')}>Translation key</th>
           {sortedLocales.map((localeKey, index) => {
             const currentLocale = locales.find(
               ({ locale }) => locale === localeKey,
@@ -97,14 +98,18 @@ function Table({
 
             return (
               <th
-                className={selectedLocale && index === 0 ? 'sticky-column' : ''}
+                className={
+                  selectedLocale && index === 0
+                    ? buildClassName('sticky-column')
+                    : ''
+                }
                 key={currentLocale.fullName}
                 style={{ minWidth: width, width }}
               >
-                <span className="locale-names">
+                <span className={buildClassName('locale-names')}>
                   {currentLocale.fullName} | {currentLocale.localName}
                 </span>
-                <div className="export-group">
+                <div className={buildClassName('export-group')}>
                   <button
                     onClick={() =>
                       handleExportFile(currentLocale.locale, 'json')
@@ -127,25 +132,25 @@ function Table({
       )}
       itemContent={(_index, item) => (
         <>
-          <td className="translation-key">{item.key}</td>
+          <td className={buildClassName('translation-key')}>{item.key}</td>
           {sortedLocales.map((locale, index) => {
             const isSticky = selectedLocale && index === 0;
 
             return (
               <td
                 key={locale + '-' + item.key}
-                className={
+                className={buildClassName(
                   isSticky
                     ? `translation sticky-column${
-                        item[locale].action === Action.DEFAULT
+                        item.translations[locale].action === Action.DEFAULT
                           ? ' translation-background'
                           : ''
-                      } ${item[locale].action}`
-                    : `translation ${item[locale].action}`
-                }
+                      } ${item.translations[locale].action}`
+                    : `translation ${item.translations[locale].action}`,
+                )}
               >
                 <textarea
-                  value={item[locale].value}
+                  value={item.translations[locale].value}
                   onChange={event =>
                     handleTranslationChange(
                       item.key,

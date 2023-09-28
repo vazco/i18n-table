@@ -1,1 +1,7 @@
-{ "extends": ["stylelint-config-standard"] }
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "selector-class-pattern": "^i18n-table--([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
+    "custom-property-pattern": "^i18n-table--([a-z][a-z0-9]*)(-[a-z0-9]+)*$"
+  }
+}

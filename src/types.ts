@@ -11,14 +11,14 @@ export type LocaleType = {
   localName: string;
 };
 
-export type DataType = { key: string } & {
-  [locale: LocaleType['locale']]: {
-    action: Action;
-    value: string;
+export type DataType = {
+  key: string;
+  translations: {
+    [locale: string]: {
+      action: Action;
+      value: string;
+    };
   };
 };
 
-export type TranslationsType = Record<
-  LocaleType['locale'],
-  Record<string, unknown>
->;
+export type TranslationsType = Record<string, Record<string, unknown>>;

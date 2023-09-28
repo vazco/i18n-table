@@ -1,89 +1,118 @@
-.translation-manager {
-  --border-radius: 5px;
-  --bg-primary: #333;
-  --bg-secondary: #d3d3d3;
-  --bg-tertiary: #f3f3f3;
-  --padding-md: 5px 10px;
-  --padding-lg: 10px 20px;
+.i18n-table--translation-manager {
+  --i18n-table--border-radius: 5px;
+  --i18n-table--bg-primary: #333;
+  --i18n-table--bg-secondary: #d3d3d3;
+  --i18n-table--bg-tertiary: #f3f3f3;
+  --i18n-table--color-added: lightgreen;
+  --i18n-table--color-modified: yellow;
+  --i18n-table--color-removed: #f33;
+  --i18n-table--color-default: white;
+  --i18n-table--padding-md: 5px 10px;
+  --i18n-table--padding-lg: 10px 20px;
+  --i18n-table--margin-md: 5px;
+  --i18n-table--margin-lg: 10px;
+  --i18n-table--height: 50px;
+  --i18n-table--width: 60px;
+  --i18n-table--translation-key-width: 260px;
+  --i18n-table--top-layer: 1;
 
   font-family: monospace;
 }
 
-.translation-manager > .header {
-  background-color: var(--bg-primary);
+.i18n-table--translation-manager > .i18n-table--header {
+  background-color: var(--i18n-table--bg-primary);
 }
 
-.translation-manager > .header > .search,
-.translation-manager > .header > .locale-dropdown,
-.translation-manager > .header > .save {
-  border-radius: var(--border-radius);
+.i18n-table--translation-manager > .i18n-table--header > .i18n-table--search,
+.i18n-table--translation-manager
+  > .i18n-table--header
+  > .i18n-table--locale-dropdown,
+.i18n-table--translation-manager > .i18n-table--header > .i18n-table--save {
   box-sizing: border-box;
-  height: 30px;
-  margin: 10px;
+  border-radius: var(--i18n-table--border-radius);
+  height: calc(var(--i18n-table--height) - 2 * var(--i18n-table--margin-lg));
+  margin: var(--i18n-table--margin-lg);
   outline: none;
-  padding: var(--padding-md);
+  padding: var(--i18n-table--padding-md);
 }
 
-.translation-manager > .header > .search,
-.translation-manager > .header > .locale-dropdown {
-  width: 180px;
+.i18n-table--translation-manager > .i18n-table--header > .i18n-table--search,
+.i18n-table--translation-manager
+  > .i18n-table--header
+  > .i18n-table--locale-dropdown {
+  width: calc(3 * var(--i18n-table--width));
 }
 
-.translation-manager > .header > .save {
-  background-color: var(--bg-secondary);
+.i18n-table--translation-manager > .i18n-table--header > .i18n-table--save {
+  background-color: var(--i18n-table--bg-secondary);
   border: none;
-  width: 60px;
+  width: var(--i18n-table--width);
 }
 
-.translation-manager > .table th {
-  background-color: var(--bg-secondary);
+.i18n-table--translation-manager > .i18n-table--table th {
+  background-color: var(--i18n-table--bg-secondary);
   box-sizing: border-box;
   left: 0;
-  padding: var(--padding-lg);
+  padding: var(--i18n-table--padding-lg);
   position: sticky;
 }
 
-.translation-manager > .table {
-  height: calc(100vh - 50px) !important;
+.i18n-table--translation-manager > .i18n-table--table {
+  height: calc(100vh - var(--i18n-table--height)) !important;
 }
 
-.translation-manager > .table .locale-names {
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--locale-names {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: var(--i18n-table--margin-md);
 }
 
-.translation-manager > .table .export-group > button {
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--export-group
+  > button {
   background-color: unset;
   cursor: pointer;
 }
 
-.translation-manager > .table .export-group > button:first-child {
-  margin-right: 5px;
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--export-group
+  > button:first-child {
+  margin-right: var(--i18n-table--margin-md);
 }
 
-.translation-manager > .table .translation-key {
-  background-color: var(--bg-tertiary);
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--translation-key {
+  background-color: var(--i18n-table--bg-tertiary);
   left: 0;
-  max-width: 260px;
-  min-width: 260px;
+  max-width: var(--i18n-table--translation-key-width);
+  min-width: var(--i18n-table--translation-key-width);
   overflow-x: scroll;
-  padding: var(--padding-lg);
+  padding: var(--i18n-table--padding-lg);
   position: sticky;
   text-align: center;
-  width: 260px;
-  z-index: 1;
+  width: var(--i18n-table--translation-key-width);
+  z-index: var(--i18n-table--top-layer);
 }
 
-.translation-manager > .table .translation {
-  padding: var(--padding-md);
-  height: 50px;
+.i18n-table--translation-manager > .i18n-table--table .i18n-table--translation {
+  padding: var(--i18n-table--padding-md);
+  height: var(--i18n-table--height);
 }
 
-.translation-manager > .table .translation-background {
-  background-color: #f3f3f3 !important;
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--translation-background {
+  background-color: var(--i18n-table--bg-tertiary) !important;
 }
 
-.translation-manager > .table .translation > textarea {
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--translation
+  > textarea {
   background-color: unset;
   border: none;
   font-family: inherit;
@@ -96,28 +125,28 @@
   width: 100%;
 }
 
-.translation-manager .top-layer {
-  z-index: 1;
+.i18n-table--translation-manager .i18n-table--top-layer {
+  z-index: var(--i18n-table--top-layer);
 }
 
-.translation-manager .sticky-column {
+.i18n-table--translation-manager .i18n-table--sticky-column {
   position: sticky;
-  left: 240;
-  z-index: 1;
+  left: var(--i18n-table--translation-key-width);
+  z-index: var(--i18n-table--top-layer);
 }
 
-.translation-manager .added {
-  background-color: lightgreen;
+.i18n-table--translation-manager .i18n-table--added {
+  background-color: var(--i18n-table--color-added);
 }
 
-.translation-manager .modified {
-  background-color: yellow;
+.i18n-table--translation-manager .i18n-table--modified {
+  background-color: var(--i18n-table--color-modified);
 }
 
-.translation-manager .removed {
-  background-color: #f33;
+.i18n-table--translation-manager .i18n-table--removed {
+  background-color: var(--i18n-table--color-removed);
 }
 
-.translation-manager .default {
-  background-color: white;
+.i18n-table--translation-manager .i18n-table--default {
+  background-color: var(--i18n-table--color-default);
 }

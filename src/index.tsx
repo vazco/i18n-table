@@ -3,6 +3,7 @@ import set from 'lodash.set';
 import React from 'react';
 
 import Table from './Table';
+import buildClassName from './lib/buildClassName';
 import getSearchRegex from './lib/getSearchRegex';
 import keyify from './lib/keyify';
 import { Action, DataType, LocaleType, TranslationsType } from './types';
@@ -11,17 +12,18 @@ import './styles.css';
 
 function initData(
   keys: string[],
-  locales: LocaleType['locale'][],
-  translations: Record<LocaleType['locale'], Record<string, unknown>>,
+  locales: string[],
+  translations: Record<string, Record<string, unknown>>,
 ) {
   return keys.map(key => {
     const object = {
       key,
+      translations: {},
     } as Partial<DataType>;
 
     for (const locale of locales) {
       const value = get(translations[locale], key) as string | undefined;
-      object[locale] = {
+      object.translations[locale] = {
         action: Action.DEFAULT,
         value: value ?? '',
       };
@@ -56,7 +58,7 @@ function TranslationManager({
     [translations],
   );
 
-  const [data, setData] = React.useState<DataType[]>(
+  const [data, setData] = React.useState(
     initData(keys, localeKeys, translations),
   );
   const [filteredData, setFilteredData] = React.useState(data);
@@ -98,17 +100,19 @@ function TranslationManager({
   const handleSave = () => {
     const dataCopy = JSON.parse(JSON.stringify(data)) as DataType[];
 
-    const translations: Record<
-      LocaleType['locale'],
-      Record<string, unknown>
-    > = {};
+    const translations: Record<string, Record<string, unknown>> = {};
     for (const localeKey of localeKeys) {
       translations[localeKey] = {};
       for (const translation of dataCopy) {
         set(
           translations[localeKey],
           translation.key,
-          (translation[localeKey] as { action: Action; value: string }).value,
+          (
+            translation.translations[localeKey] as {
+              action: Action;
+              value: string;
+            }
+          ).value,
         );
         set(
           dataCopy[dataCopy.findIndex(({ key }) => key === translation.key)],
@@ -132,10 +136,10 @@ function TranslationManager({
   }
 
   return (
-    <div className="translation-manager">
-      <div className="header">
+    <div className={buildClassName('translation-manager')}>
+      <div className={buildClassName('header')}>
         <input
-          className="search"
+          className={buildClassName('search')}
           onChange={event => setSearch(event.target.value)}
           placeholder="Search"
           type="text"
@@ -143,7 +147,7 @@ function TranslationManager({
         />
 
         <select
-          className="locale-dropdown"
+          className={buildClassName('locale-dropdown')}
           onChange={event => setSelectedLocale(event.target.value)}
           value={selectedLocale}
         >
@@ -156,7 +160,7 @@ function TranslationManager({
         </select>
 
         {isChanged && (
-          <button className="save" onClick={handleSave}>
+          <button className={buildClassName('save')} onClick={handleSave}>
             Save
           </button>
         )}
