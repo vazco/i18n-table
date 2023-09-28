@@ -4,6 +4,7 @@ import React from 'react';
 
 import Table from './Table';
 import buildClassName from './lib/buildClassName';
+import { DEFAULT_COMPONENT_TRANSLATIONS } from './lib/constants';
 import getSearchRegex from './lib/getSearchRegex';
 import keyify from './lib/keyify';
 import { Action, DataType, LocaleType, TranslationsType } from './types';
@@ -33,15 +34,21 @@ function initData(
   }) as DataType[];
 }
 
-function TranslationManager({
-  translations,
-  locales,
-  onSave,
-}: {
-  translations: TranslationsType;
+type TranslationManagerProps = {
+  componentTranslations: typeof DEFAULT_COMPONENT_TRANSLATIONS;
   locales: LocaleType[];
+  onLocaleChange: (locale: string) => void;
   onSave: (translations: TranslationsType) => void;
-}) {
+  translations: TranslationsType;
+};
+
+function TranslationManager({
+  componentTranslations = DEFAULT_COMPONENT_TRANSLATIONS,
+  locales,
+  onLocaleChange,
+  onSave,
+  translations,
+}: TranslationManagerProps) {
   const localeKeys = React.useMemo(() => {
     return locales.map(({ locale }) => locale);
   }, [locales]);
@@ -128,6 +135,12 @@ function TranslationManager({
     onSave(translations);
   };
 
+  const handleLocaleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const locale = event.target.value;
+    setSelectedLocale(locale);
+    onLocaleChange(locale);
+  };
+
   let sortedLocales = [...localeKeys];
   if (selectedLocale) {
     const index = sortedLocales.indexOf(selectedLocale);
@@ -141,17 +154,17 @@ function TranslationManager({
         <input
           className={buildClassName('search')}
           onChange={event => setSearch(event.target.value)}
-          placeholder="Search"
+          placeholder={componentTranslations.search}
           type="text"
           value={search}
         />
 
         <select
           className={buildClassName('locale-dropdown')}
-          onChange={event => setSelectedLocale(event.target.value)}
+          onChange={handleLocaleChange}
           value={selectedLocale}
         >
-          <option value="">Select locale</option>
+          <option value="">{componentTranslations.select}</option>
           {sortedLocales.map(locale => (
             <option key={locale} value={locale}>
               {locale}
@@ -161,12 +174,13 @@ function TranslationManager({
 
         {isChanged && (
           <button className={buildClassName('save')} onClick={handleSave}>
-            Save
+            {componentTranslations.save}
           </button>
         )}
       </div>
 
       <Table
+        componentTranslations={componentTranslations}
         data={data}
         filteredData={filteredData}
         isChanged={isChanged}

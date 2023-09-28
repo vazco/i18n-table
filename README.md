@@ -65,6 +65,25 @@ export const App = () => (
 
 5. If you want to write **your own styles**, copy `/src/lib/styles.css` file to your project, modify it and import it instead of `i18n-table/dist/index.css`
 
+6. You can also customize header translations.
+
+```js
+const componentTranslations = {
+  save: t('save'),
+  search: t('search'),
+  select: t('select'),
+  translationKey: t('translationKey'),
+};
+
+export const App = () => (
+  <TranslationManager
+    // ...
+    componentTranslations={componentTranslations}
+    onLocaleChange={locale => i18n.setLocale(locale)}
+  />
+);
+```
+
 ## Licence
 
 **Like every package maintained by [Vazco](https://vazco.eu/), uniforms packages are [MIT licensed](https://github.com/vazco/i18n-table/blob/master/LICENSE).**

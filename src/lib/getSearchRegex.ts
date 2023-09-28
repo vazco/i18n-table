@@ -1,3 +1,6 @@
+import escapeRegExp from 'lodash.escaperegexp';
+
 export default function getSearchRegex(search: string, exact = false) {
-  return new RegExp(exact ? `^${search}$` : search, 'i');
+  const regex = escapeRegExp(exact ? `^${search}$` : search);
+  return new RegExp(regex, 'i');
 }

@@ -6,9 +6,11 @@ import React from 'react';
 import { TableVirtuoso } from 'react-virtuoso';
 
 import buildClassName from './lib/buildClassName';
+import { DEFAULT_COMPONENT_TRANSLATIONS } from './lib/constants';
 import { Action, DataType, LocaleType } from './types';
 
 type TableProps = {
+  componentTranslations: typeof DEFAULT_COMPONENT_TRANSLATIONS;
   data: DataType[];
   filteredData: DataType[];
   isChanged: boolean;
@@ -21,6 +23,7 @@ type TableProps = {
 };
 
 function Table({
+  componentTranslations,
   data,
   filteredData,
   isChanged,
@@ -47,13 +50,25 @@ function Table({
       const previousValue = get(translations[locale], key) ?? '';
 
       if (previousValue === value) {
-        set(dataCopy[localeIndex].translations, locale, { action: Action.DEFAULT, value });
+        set(dataCopy[localeIndex].translations, locale, {
+          action: Action.DEFAULT,
+          value,
+        });
       } else if (value === '') {
-        set(dataCopy[localeIndex].translations, locale, { action: Action.REMOVED, value });
+        set(dataCopy[localeIndex].translations, locale, {
+          action: Action.REMOVED,
+          value,
+        });
       } else if (previousValue === '' && value !== '') {
-        set(dataCopy[localeIndex].translations, locale, { action: Action.ADDED, value });
+        set(dataCopy[localeIndex].translations, locale, {
+          action: Action.ADDED,
+          value,
+        });
       } else if (previousValue !== value) {
-        set(dataCopy[localeIndex].translations, locale, { action: Action.MODIFIED, value });
+        set(dataCopy[localeIndex].translations, locale, {
+          action: Action.MODIFIED,
+          value,
+        });
       } else {
         set(dataCopy[localeIndex].translations, `${locale}.value`, value);
       }
@@ -67,7 +82,7 @@ function Table({
     const dataObject = {};
 
     for (const translation of currentData) {
-      set(dataObject, translation.key, translation[locale].value);
+      set(dataObject, translation.key, translation.translations[locale].value);
     }
 
     const serializedTranslations =
@@ -88,7 +103,9 @@ function Table({
       data={filteredData}
       fixedHeaderContent={() => (
         <tr>
-          <th className={buildClassName('top-layer')}>Translation key</th>
+          <th className={buildClassName('top-layer')}>
+            {componentTranslations.translationKey}
+          </th>
           {sortedLocales.map((localeKey, index) => {
             const currentLocale = locales.find(
               ({ locale }) => locale === localeKey,
