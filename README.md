@@ -84,6 +84,6 @@ export const App = () => (
 );
 ```
 
-## Licence
+## License
 
-**Like every package maintained by [Vazco](https://vazco.eu/), uniforms packages are [MIT licensed](https://github.com/vazco/i18n-table/blob/master/LICENSE).**
+**Like every package maintained by [Vazco](https://vazco.eu/), i18n-table package is [MIT licensed](https://github.com/vazco/i18n-table/blob/master/LICENSE).**
