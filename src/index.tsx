@@ -25,7 +25,7 @@ function initData(
 
     for (const locale of locales) {
       const value = get(translations[locale], key) as string | undefined;
-      object.translations[locale] = value ?? '';
+      set(object.translations as DataType['translations'], locale, value ?? '');
     }
 
     return object;

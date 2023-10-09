@@ -49,7 +49,7 @@ function Table({
 
     setChanges(changes => {
       const changesCopy = cloneDeep(changes);
-      const translationKey = data.find(data => data.key === key).key;
+      const translationKey = data.find(data => data.key === key)?.key as string;
 
       const previousValue = get(translations[locale], key) ?? '';
 
@@ -117,7 +117,7 @@ function Table({
           {sortedLocales.map((localeKey, index) => {
             const currentLocale = locales.find(
               ({ locale }) => locale === localeKey,
-            );
+            ) as LocaleType;
 
             const width = `max(300px, calc((100vw - 240px) / ${sortedLocales.length}))`;
 
