@@ -1,6 +1,7 @@
-const prefix = [];
-
-export default function keyify(object: Record<string, unknown>): string[] {
+export default function keyify(
+  object: Record<string, unknown>,
+  prefix: unknown[] = [],
+): string[] {
   return Object.keys(object).reduce<string[]>((result, element) => {
     if (Array.isArray(object[element])) {
       return result;
@@ -8,7 +9,7 @@ export default function keyify(object: Record<string, unknown>): string[] {
 
     if (typeof object[element] === 'object' && object[element] !== null) {
       prefix.push(element);
-      const keys = keyify(object[element] as Record<string, unknown>);
+      const keys = keyify(object[element] as Record<string, unknown>, prefix);
       prefix.pop();
 
       result.push(...keys);
