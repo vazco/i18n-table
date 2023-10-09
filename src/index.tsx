@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash.clonedeep';
 import get from 'lodash.get';
 import set from 'lodash.set';
 import React from 'react';
@@ -103,7 +104,7 @@ function TranslationManager({
   }, [data]);
 
   const handleSave = () => {
-    const dataCopy = JSON.parse(JSON.stringify(data)) as typeof data;
+    const dataCopy = cloneDeep(data);
 
     const translations: Record<string, Record<string, unknown>> = {};
     for (const localeKey of localeKeys) {

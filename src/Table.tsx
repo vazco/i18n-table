@@ -1,5 +1,6 @@
 import FileSaver from 'file-saver';
 import yaml from 'js-yaml';
+import cloneDeep from 'lodash.clonedeep';
 import get from 'lodash.get';
 import set from 'lodash.set';
 import React from 'react';
@@ -47,7 +48,7 @@ function Table({
     }
 
     setChanges(changes => {
-      const changesCopy = JSON.parse(JSON.stringify(changes)) as typeof changes;
+      const changesCopy = cloneDeep(changes);
       const translationKey = data.find(data => data.key === key).key;
 
       const previousValue = get(translations[locale], key) ?? '';
@@ -82,7 +83,7 @@ function Table({
   };
 
   const handleExportFile = (locale: string, type: 'json' | 'yml') => {
-    const currentData = JSON.parse(JSON.stringify(data)) as typeof data;
+    const currentData = cloneDeep(data);
     const dataObject = {};
 
     for (const translation of currentData) {
