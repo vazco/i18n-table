@@ -15,7 +15,7 @@ import './styles.css';
 function initData(
   keys: string[],
   locales: string[],
-  translations: Record<string, Record<string, unknown>>,
+  translations: TranslationsType,
 ) {
   return keys.map(key => {
     const object = {
@@ -104,7 +104,7 @@ function TranslationManager({
   const handleSave = () => {
     const dataCopy = cloneDeep(data);
 
-    const translations: Record<string, Record<string, unknown>> = {};
+    const translations: TranslationsType = {};
     for (const localeKey of localeKeys) {
       translations[localeKey] = {};
       for (const translation of dataCopy) {

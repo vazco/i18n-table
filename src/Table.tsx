@@ -8,7 +8,13 @@ import { TableVirtuoso } from 'react-virtuoso';
 
 import buildClassName from './lib/buildClassName';
 import { DEFAULT_COMPONENT_TRANSLATIONS } from './lib/constants';
-import { Action, ChangesType, DataType, LocaleType } from './types';
+import {
+  Action,
+  ChangesType,
+  DataType,
+  LocaleType,
+  TranslationsType,
+} from './types';
 
 type TableProps = {
   changes: ChangesType;
@@ -22,7 +28,7 @@ type TableProps = {
   setData: React.Dispatch<React.SetStateAction<DataType[]>>;
   setIsChanged: React.Dispatch<React.SetStateAction<boolean>>;
   sortedLocales: string[];
-  translations: Record<string, Record<string, unknown>>;
+  translations: TranslationsType;
 };
 
 function Table({
