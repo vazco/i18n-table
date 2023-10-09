@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash.clonedeep';
 import get from 'lodash.get';
 import set from 'lodash.set';
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import Table from './Table';
 import buildClassName from './lib/buildClassName';
@@ -47,11 +47,11 @@ function TranslationManager({
   onSave,
   translations,
 }: TranslationManagerProps) {
-  const localeKeys = React.useMemo(() => {
+  const localeKeys = useMemo(() => {
     return locales.map(({ locale }) => locale);
   }, [locales]);
 
-  const keys: string[] = React.useMemo(
+  const keys: string[] = useMemo(
     () =>
       Array.from(
         new Set(
@@ -63,16 +63,14 @@ function TranslationManager({
     [translations],
   );
 
-  const [changes, setChanges] = React.useState<ChangesType>({});
-  const [data, setData] = React.useState(
-    initData(keys, localeKeys, translations),
-  );
-  const [filteredData, setFilteredData] = React.useState(data);
-  const [search, setSearch] = React.useState('');
-  const [selectedLocale, setSelectedLocale] = React.useState('');
-  const [isChanged, setIsChanged] = React.useState(false);
+  const [changes, setChanges] = useState<ChangesType>({});
+  const [data, setData] = useState(initData(keys, localeKeys, translations));
+  const [filteredData, setFilteredData] = useState(data);
+  const [search, setSearch] = useState('');
+  const [selectedLocale, setSelectedLocale] = useState('');
+  const [isChanged, setIsChanged] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (search) {
       const filteredKeys = keys.filter(key => {
         if (search.includes('.')) {
@@ -99,7 +97,7 @@ function TranslationManager({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setFilteredData(data);
   }, [data]);
 
