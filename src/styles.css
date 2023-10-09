@@ -1,0 +1,152 @@
+.i18n-table--translation-manager {
+  --i18n-table--border-radius: 5px;
+  --i18n-table--bg-primary: #333;
+  --i18n-table--bg-secondary: #d3d3d3;
+  --i18n-table--bg-tertiary: #f3f3f3;
+  --i18n-table--color-added: lightgreen;
+  --i18n-table--color-modified: yellow;
+  --i18n-table--color-removed: #f33;
+  --i18n-table--color-default: white;
+  --i18n-table--padding-md: 5px 10px;
+  --i18n-table--padding-lg: 10px 20px;
+  --i18n-table--margin-md: 5px;
+  --i18n-table--margin-lg: 10px;
+  --i18n-table--height: 50px;
+  --i18n-table--width: 60px;
+  --i18n-table--translation-key-width: 260px;
+  --i18n-table--top-layer: 1;
+
+  font-family: monospace;
+}
+
+.i18n-table--translation-manager > .i18n-table--header {
+  background-color: var(--i18n-table--bg-primary);
+}
+
+.i18n-table--translation-manager > .i18n-table--header > .i18n-table--search,
+.i18n-table--translation-manager
+  > .i18n-table--header
+  > .i18n-table--locale-dropdown,
+.i18n-table--translation-manager > .i18n-table--header > .i18n-table--save {
+  box-sizing: border-box;
+  border-radius: var(--i18n-table--border-radius);
+  height: calc(var(--i18n-table--height) - 2 * var(--i18n-table--margin-lg));
+  margin: var(--i18n-table--margin-lg);
+  outline: none;
+  padding: var(--i18n-table--padding-md);
+}
+
+.i18n-table--translation-manager > .i18n-table--header > .i18n-table--search,
+.i18n-table--translation-manager
+  > .i18n-table--header
+  > .i18n-table--locale-dropdown {
+  width: calc(3 * var(--i18n-table--width));
+}
+
+.i18n-table--translation-manager > .i18n-table--header > .i18n-table--save {
+  background-color: var(--i18n-table--bg-secondary);
+  border: none;
+  width: var(--i18n-table--width);
+}
+
+.i18n-table--translation-manager > .i18n-table--table th {
+  background-color: var(--i18n-table--bg-secondary);
+  box-sizing: border-box;
+  left: 0;
+  padding: var(--i18n-table--padding-lg);
+  position: sticky;
+}
+
+.i18n-table--translation-manager > .i18n-table--table {
+  height: calc(100vh - var(--i18n-table--height)) !important;
+}
+
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--locale-names {
+  display: block;
+  margin-bottom: var(--i18n-table--margin-md);
+}
+
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--export-group
+  > button {
+  background-color: unset;
+  cursor: pointer;
+}
+
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--export-group
+  > button:first-child {
+  margin-right: var(--i18n-table--margin-md);
+}
+
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--translation-key {
+  background-color: var(--i18n-table--bg-tertiary);
+  left: 0;
+  max-width: var(--i18n-table--translation-key-width);
+  min-width: var(--i18n-table--translation-key-width);
+  overflow-x: scroll;
+  padding: var(--i18n-table--padding-lg);
+  position: sticky;
+  text-align: center;
+  width: var(--i18n-table--translation-key-width);
+  z-index: var(--i18n-table--top-layer);
+}
+
+.i18n-table--translation-manager > .i18n-table--table .i18n-table--translation {
+  padding: var(--i18n-table--padding-md);
+  height: var(--i18n-table--height);
+}
+
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--translation-background {
+  background-color: var(--i18n-table--bg-tertiary) !important;
+}
+
+.i18n-table--translation-manager
+  > .i18n-table--table
+  .i18n-table--translation
+  > textarea {
+  background-color: unset;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  height: 100%;
+  outline: none;
+  resize: none;
+  width: 100%;
+}
+
+.i18n-table--translation-manager .i18n-table--top-layer {
+  z-index: var(--i18n-table--top-layer);
+}
+
+.i18n-table--translation-manager .i18n-table--sticky-column {
+  position: sticky;
+  left: var(--i18n-table--translation-key-width);
+  z-index: var(--i18n-table--top-layer);
+}
+
+.i18n-table--translation-manager .i18n-table--added {
+  background-color: var(--i18n-table--color-added);
+}
+
+.i18n-table--translation-manager .i18n-table--modified {
+  background-color: var(--i18n-table--color-modified);
+}
+
+.i18n-table--translation-manager .i18n-table--removed {
+  background-color: var(--i18n-table--color-removed);
+}
+
+.i18n-table--translation-manager .i18n-table--default {
+  background-color: var(--i18n-table--color-default);
+}
