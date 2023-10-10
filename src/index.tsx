@@ -1,36 +1,18 @@
 import cloneDeep from 'lodash.clonedeep';
-import get from 'lodash.get';
 import set from 'lodash.set';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import Table from './Table';
-import buildClassName from './lib/buildClassName';
-import { DEFAULT_COMPONENT_TRANSLATIONS } from './lib/constants';
-import getSearchRegex from './lib/getSearchRegex';
-import keyify from './lib/keyify';
-import { ChangesType, DataType, LocaleType, TranslationsType } from './types';
+import {
+  buildClassName,
+  DEFAULT_COMPONENT_TRANSLATIONS,
+  getSearchRegex,
+  initData,
+  keyify,
+} from './lib';
+import { ChangesType, LocaleType, TranslationsType } from './types';
 
 import './styles.css';
-
-function initData(
-  keys: string[],
-  locales: string[],
-  translations: TranslationsType,
-) {
-  return keys.map(key => {
-    const object = {
-      key,
-      translations: {},
-    } as Partial<DataType>;
-
-    for (const locale of locales) {
-      const value = get(translations[locale], key) as string | undefined;
-      set(object.translations as DataType['translations'], locale, value ?? '');
-    }
-
-    return object;
-  }) as DataType[];
-}
 
 type TranslationManagerProps = {
   componentTranslations: typeof DEFAULT_COMPONENT_TRANSLATIONS;

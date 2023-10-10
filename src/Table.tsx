@@ -6,8 +6,7 @@ import set from 'lodash.set';
 import React from 'react';
 import { TableVirtuoso } from 'react-virtuoso';
 
-import buildClassName from './lib/buildClassName';
-import { DEFAULT_COMPONENT_TRANSLATIONS } from './lib/constants';
+import { buildClassName, DEFAULT_COMPONENT_TRANSLATIONS } from './lib';
 import {
   Action,
   ChangesType,
