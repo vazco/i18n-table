@@ -29,8 +29,7 @@
     "lint:tsc": "tsc",
     "lint:prettier": "prettier --check '**/*.{json,md}'",
     "lint:stylelint": "stylelint ./src/**/*.css",
-    "build": "npm run lint && microbundle --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react",
-    "dev": "microbundle --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react watch"
+    "build": "microbundle --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react"
   },
   "peerDependencies": {
     "react": "^18.0.0",
