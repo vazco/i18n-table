@@ -13,8 +13,14 @@
   "type": "module",
   "source": "./src/index.tsx",
   "exports": {
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.mjs"
+    ".": {
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    },
+    "./dist/index.css": {
+      "import": "./dist/index.css",
+      "require": "./dist/index.css"
+    }
   },
   "main": "./src/index.tsx",
   "module": "./src/index.tsx",
