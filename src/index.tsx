@@ -15,9 +15,9 @@ import { ChangesType, LocaleType, TranslationsType } from './types';
 import './styles.css';
 
 type TranslationManagerProps = {
-  componentTranslations: typeof DEFAULT_COMPONENT_TRANSLATIONS;
+  componentTranslations?: typeof DEFAULT_COMPONENT_TRANSLATIONS;
   locales: LocaleType[];
-  onLocaleChange: (locale: string) => void;
+  onLocaleChange?: (locale: string) => void;
   onSave: (translations: TranslationsType) => void;
   translations: TranslationsType;
 };
@@ -114,7 +114,7 @@ function TranslationManager({
   const handleLocaleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const locale = event.target.value;
     setSelectedLocale(locale);
-    onLocaleChange(locale);
+    onLocaleChange?.(locale);
   };
 
   let sortedLocales = [...localeKeys];
