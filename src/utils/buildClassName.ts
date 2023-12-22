@@ -1,8 +1,8 @@
-import { PREFIX } from './constants';
+import { PREFIX } from "./constants";
 
 export default function buildClassName(className: string) {
   return className
-    .split(' ')
+    .split(" ")
     .map(name => PREFIX + name)
-    .join(' ');
+    .join(" ");
 }

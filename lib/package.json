@@ -1,0 +1,69 @@
+{
+  "name": "i18n-table",
+  "version": "1.0.2",
+  "description": "A React component that helps organize and manage translations",
+  "keywords": [
+    "i18n",
+    "manager",
+    "react-component",
+    "table",
+    "translations"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "source": "./src/index.tsx",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    },
+    "./dist/index.css": {
+      "import": "./dist/index.css",
+      "require": "./dist/index.css"
+    }
+  },
+  "main": "./src/index.tsx",
+  "module": "./src/index.tsx",
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.mjs"
+  },
+  "scripts": {
+    "lint": "eslint src && tsc && stylelint ./src/**/*.css",
+    "build": "microbundle --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --external react,react-dom",
+    "dev": "npm run build watch"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "dependencies": {
+    "file-saver": "2.0.5",
+    "js-yaml": "4.1.0",
+    "lodash.clonedeep": "4.5.0",
+    "lodash.escaperegexp": "4.1.2",
+    "lodash.get": "4.4.2",
+    "lodash.set": "4.3.2",
+    "react-virtuoso": "4.5.1"
+  },
+  "devDependencies": {
+    "@types/file-saver": "2.0.5",
+    "@types/js-yaml": "4.0.5",
+    "@types/lodash.clonedeep": "4.5.7",
+    "@types/lodash.escaperegexp": "4.1.7",
+    "@types/lodash.get": "4.4.7",
+    "@types/lodash.set": "4.3.7",
+    "@types/react": "18.2.21",
+    "@types/react-dom": "18.2.7",
+    "@typescript-eslint/eslint-plugin": "6.15.0",
+    "@typescript-eslint/parser": "6.15.0",
+    "eslint": "8.56.0",
+    "eslint-config-prettier": "9.1.0",
+    "microbundle": "0.15.1",
+    "stylelint": "16.0.2",
+    "stylelint-config-standard": "35.0.0",
+    "typescript": "5.3.3"
+  }
+}
