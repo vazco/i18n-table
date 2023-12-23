@@ -3,7 +3,7 @@
 > [!Note]
 > If you want to see `README` file of `i18n-table`, check it [here](./README.md).
 
-### Get started
+## Get started
 
 You can start `playground` project locally. It's NextJS application with basic `i18n-table` implementation.
 
