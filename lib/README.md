@@ -63,23 +63,21 @@ const locales = [
 
 4. Render `TranslationManager` on your page
 
-```js
-export const App = () => (
-  <TranslationManager
-    translations={translations}
-    locales={locales}
-    onSave={(translations) => {
-      /* Handle saving translations - structure is the same as in the step 2. */
-    }}
-  />
-);
+```jsx
+export const App = () => {
+  const onSave = (translation) => {
+    /* Handle saving translations - structure is the same as in the step 2. */
+  };
+
+  return <TranslationManager translations={translations} locales={locales} onSave={onSave} />;
+};
 ```
 
 5. If you want to write **your own styles**, copy `/src/lib/styles.css` file to your project, modify it and import it instead of `i18n-table/dist/index.css`
 
 6. You can also customize header translations.
 
-```js
+```jsx
 const componentTranslations = {
   save: t("save"),
   search: t("search"),
@@ -87,13 +85,17 @@ const componentTranslations = {
   translationKey: t("translationKey"),
 };
 
-export const App = () => (
+export const App = () => {
+  const onLocaleChange = (locale) => i18n.setLocale(locale);
+
+  return (
   <TranslationManager
-    // ...
+    {/* ... */}
     componentTranslations={componentTranslations}
-    onLocaleChange={(locale) => i18n.setLocale(locale)}
+    onLocaleChange={onLocaleChange}
   />
-);
+)
+};
 ```
 
 ## License
