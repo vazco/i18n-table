@@ -1,6 +1,6 @@
 {
   "name": "i18n-table",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A React component that helps organize and manage translations",
   "keywords": [
     "i18n",
