@@ -38,7 +38,7 @@ function TranslationManager({
       Array.from(
         new Set(
           Object.values(translations)
-            .map(translation => keyify(translation))
+            .map((translation) => keyify(translation))
             .flat(),
         ),
       ).sort(),
@@ -54,7 +54,7 @@ function TranslationManager({
 
   useEffect(() => {
     if (search) {
-      const filteredKeys = keys.filter(key => {
+      const filteredKeys = keys.filter((key) => {
         if (search.includes(".")) {
           const regex = getSearchRegex(search);
           return regex.test(key);
@@ -62,10 +62,10 @@ function TranslationManager({
           const searches = search.split(" ");
           return key
             .split(".")
-            .some(key => searches.some(search => getSearchRegex(search).test(key)));
+            .some((key) => searches.some((search) => getSearchRegex(search).test(key)));
         }
         const regex = getSearchRegex(search);
-        return key.split(".").some(key => regex.test(key));
+        return key.split(".").some((key) => regex.test(key));
       });
 
       if (filteredKeys.length) {
@@ -124,7 +124,7 @@ function TranslationManager({
       <div className={buildClassName("header")}>
         <input
           className={buildClassName("search")}
-          onChange={event => setSearch(event.target.value)}
+          onChange={(event) => setSearch(event.target.value)}
           placeholder={componentTranslations.search}
           type="text"
           value={search}
@@ -136,7 +136,7 @@ function TranslationManager({
           value={selectedLocale}
         >
           <option value="">{componentTranslations.select}</option>
-          {sortedLocales.map(locale => (
+          {sortedLocales.map((locale) => (
             <option key={locale} value={locale}>
               {locale}
             </option>

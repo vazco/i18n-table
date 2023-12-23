@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "turbo dev",
     "lint": "turbo lint",
+    "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "devDependencies": {

@@ -68,7 +68,7 @@ export const App = () => (
   <TranslationManager
     translations={translations}
     locales={locales}
-    onSave={translations => {
+    onSave={(translations) => {
       /* Handle saving translations - structure is the same as in the step 2. */
     }}
   />
@@ -91,7 +91,7 @@ export const App = () => (
   <TranslationManager
     // ...
     componentTranslations={componentTranslations}
-    onLocaleChange={locale => i18n.setLocale(locale)}
+    onLocaleChange={(locale) => i18n.setLocale(locale)}
   />
 );
 ```

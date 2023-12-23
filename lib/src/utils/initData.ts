@@ -8,7 +8,7 @@ export default function initData(
   locales: string[],
   translations: TranslationsType,
 ) {
-  return keys.map(key => {
+  return keys.map((key) => {
     const object = {
       key,
       translations: {},

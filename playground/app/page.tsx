@@ -29,7 +29,7 @@ export default function Page(): JSX.Element {
   return (
     <TranslationManager
       locales={LOCALES}
-      onSave={translations => {
+      onSave={(translations) => {
         alert(JSON.stringify(translations, null, 2));
       }}
       translations={TRANSLATIONS}

@@ -42,9 +42,9 @@ function Table({
       setIsChanged(true);
     }
 
-    setChanges(changes => {
+    setChanges((changes) => {
       const changesCopy = cloneDeep(changes);
-      const translationKey = data.find(data => data.key === key)?.key as string;
+      const translationKey = data.find((data) => data.key === key)?.key as string;
 
       const previousValue = get(translations[locale], key) ?? "";
 
@@ -153,7 +153,9 @@ function Table({
               >
                 <textarea
                   value={changes[item.key]?.[locale]?.value ?? item.translations[locale]}
-                  onChange={event => handleTranslationChange(item.key, locale, event.target.value)}
+                  onChange={(event) =>
+                    handleTranslationChange(item.key, locale, event.target.value)
+                  }
                 />
               </td>
             );
