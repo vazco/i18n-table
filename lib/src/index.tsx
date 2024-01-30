@@ -1,18 +1,18 @@
-import cloneDeep from 'lodash.clonedeep';
-import set from 'lodash.set';
-import React, { useEffect, useMemo, useState } from 'react';
+import cloneDeep from "lodash.clonedeep";
+import set from "lodash.set";
+import React, { useEffect, useMemo, useState } from "react";
 
-import Table from './Table';
+import Table from "./Table";
 import {
   buildClassName,
   DEFAULT_COMPONENT_TRANSLATIONS,
   getSearchRegex,
   initData,
   keyify,
-} from './lib';
-import { ChangesType, LocaleType, TranslationsType } from './types';
+} from "./utils";
+import { ChangesType, LocaleType, TranslationsType } from "./types";
 
-import './styles.css';
+import "./styles.css";
 
 type TranslationManagerProps = {
   componentTranslations?: typeof DEFAULT_COMPONENT_TRANSLATIONS;
@@ -38,7 +38,7 @@ function TranslationManager({
       Array.from(
         new Set(
           Object.values(translations)
-            .map(translation => keyify(translation))
+            .map((translation) => keyify(translation))
             .flat(),
         ),
       ).sort(),
@@ -48,26 +48,24 @@ function TranslationManager({
   const [changes, setChanges] = useState<ChangesType>({});
   const [data, setData] = useState(initData(keys, localeKeys, translations));
   const [filteredData, setFilteredData] = useState(data);
-  const [search, setSearch] = useState('');
-  const [selectedLocale, setSelectedLocale] = useState('');
+  const [search, setSearch] = useState("");
+  const [selectedLocale, setSelectedLocale] = useState("");
   const [isChanged, setIsChanged] = useState(false);
 
   useEffect(() => {
     if (search) {
-      const filteredKeys = keys.filter(key => {
-        if (search.includes('.')) {
+      const filteredKeys = keys.filter((key) => {
+        if (search.includes(".")) {
           const regex = getSearchRegex(search);
           return regex.test(key);
-        } else if (search.includes(' ')) {
-          const searches = search.split(' ');
+        } else if (search.includes(" ")) {
+          const searches = search.split(" ");
           return key
-            .split('.')
-            .some(key =>
-              searches.some(search => getSearchRegex(search).test(key)),
-            );
+            .split(".")
+            .some((key) => searches.some((search) => getSearchRegex(search).test(key)));
         }
         const regex = getSearchRegex(search);
-        return key.split('.').some(key => regex.test(key));
+        return key.split(".").some((key) => regex.test(key));
       });
 
       if (filteredKeys.length) {
@@ -76,7 +74,6 @@ function TranslationManager({
     } else {
       setFilteredData(data);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   useEffect(() => {
@@ -91,13 +88,11 @@ function TranslationManager({
       translations[localeKey] = {};
       for (const translation of dataCopy) {
         const value =
-          changes[translation.key]?.[localeKey]?.value ??
-          translation.translations[localeKey];
+          changes[translation.key]?.[localeKey]?.value ?? translation.translations[localeKey];
 
         set(translations[localeKey], translation.key, value);
         set(
-          dataCopy[dataCopy.findIndex(({ key }) => key === translation.key)]
-            .translations,
+          dataCopy[dataCopy.findIndex(({ key }) => key === translation.key)].translations,
           localeKey,
           value,
         );
@@ -125,23 +120,23 @@ function TranslationManager({
   }
 
   return (
-    <div className={buildClassName('translation-manager')}>
-      <div className={buildClassName('header')}>
+    <div className={buildClassName("translation-manager")}>
+      <div className={buildClassName("header")}>
         <input
-          className={buildClassName('search')}
-          onChange={event => setSearch(event.target.value)}
+          className={buildClassName("search")}
+          onChange={(event) => setSearch(event.target.value)}
           placeholder={componentTranslations.search}
           type="text"
           value={search}
         />
 
         <select
-          className={buildClassName('locale-dropdown')}
+          className={buildClassName("locale-dropdown")}
           onChange={handleLocaleChange}
           value={selectedLocale}
         >
           <option value="">{componentTranslations.select}</option>
-          {sortedLocales.map(locale => (
+          {sortedLocales.map((locale) => (
             <option key={locale} value={locale}>
               {locale}
             </option>
@@ -149,7 +144,7 @@ function TranslationManager({
         </select>
 
         {isChanged && (
-          <button className={buildClassName('save')} onClick={handleSave}>
+          <button className={buildClassName("save")} onClick={handleSave}>
             {componentTranslations.save}
           </button>
         )}

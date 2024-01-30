@@ -1,7 +1,7 @@
 export enum Action {
-  ADDED = 'added',
-  MODIFIED = 'modified',
-  REMOVED = 'removed',
+  ADDED = "added",
+  MODIFIED = "modified",
+  REMOVED = "removed",
 }
 
 export type LocaleType = {
