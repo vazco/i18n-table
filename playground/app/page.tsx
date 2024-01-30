@@ -25,7 +25,7 @@ const LOCALES = [
   { locale: "es", fullName: "Spanish", localName: "Español" },
 ];
 
-export default function Page(): JSX.Element {
+export default function Page() {
   return (
     <TranslationManager
       locales={LOCALES}
