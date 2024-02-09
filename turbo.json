@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
-    "build": {},
+    "build": { "dependsOn": ["^build"] },
     "dev": { "cache": false, "persistent": true },
     "lint": {},
     "playground#start": { "dependsOn": ["^build"] }
