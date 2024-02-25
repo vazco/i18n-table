@@ -10,8 +10,8 @@ You can start `playground` project locally. It's NextJS application with basic `
 1. Requirements
 
 ```
-Node v20.10.0
-npm 10.2.5
+Node v20.11.0
+npm v10.4.0
 ```
 
 2. Install dependencies
