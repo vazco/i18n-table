@@ -2,28 +2,7 @@
 
 import "i18n-table/dist/index.css";
 import TranslationManager from "i18n-table";
-
-const TRANSLATIONS = {
-  en: {
-    test: "Test",
-    colors: {
-      red: "Red",
-      blue: "Blue",
-      green: "Green",
-    },
-  },
-  es: {
-    colors: {
-      red: "Rojo",
-      green: "Verde",
-    },
-  },
-};
-
-const LOCALES = [
-  { locale: "en", fullName: "English", localName: "English" },
-  { locale: "es", fullName: "Spanish", localName: "Español" },
-];
+import { LOCALES, TRANSLATIONS } from "./utils";
 
 export default function Page() {
   return (

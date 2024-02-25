@@ -4,6 +4,6 @@
     "build": { "dependsOn": ["^build"] },
     "dev": { "cache": false, "persistent": true },
     "lint": {},
-    "playground#start": { "dependsOn": ["^build"] }
+    "playground#start": { "dependsOn": ["build"] }
   }
 }
