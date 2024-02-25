@@ -1,9 +1,6 @@
 <h1 align="center">i18n-table</h1>
 
 <p align="center">
-  <a href="https://github.com/vazco/i18n-table/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/vazco/i18n-table" alt="MIT license" />
-  </a>
   <a href="https://vazco.eu">
     <img src="https://img.shields.io/badge/vazco-package-blue.svg" alt="Vazco">
   </a>

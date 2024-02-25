@@ -1,7 +1,7 @@
 # Monorepo of i18n-table
 
 > [!Note]
-> If you want to see `README` file of `i18n-table`, check it [here](./lib/README.md).
+> If you want to see `README` file of `i18n-table`, check it [here](./lib).
 
 ## Get started
 
