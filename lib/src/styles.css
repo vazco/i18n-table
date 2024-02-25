@@ -117,7 +117,7 @@
   z-index: var(--i18n-table--top-layer);
 }
 
-.i18n-table--translation-manager .i18n-table--sticky-column {
+.i18n-table--translation-manager > .i18n-table--table .i18n-table--sticky-column {
   position: sticky;
   left: var(--i18n-table--translation-key-width);
   z-index: var(--i18n-table--top-layer);
